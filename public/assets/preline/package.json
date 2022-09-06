@@ -1,0 +1,79 @@
+{
+  "_from": "preline",
+  "_id": "preline@1.1.2",
+  "_inBundle": false,
+  "_integrity": "sha512-oUlzaQHxuLqwXCvuJ/OwMtXUdtdOHgHjbf/BOh2QwbCABweo4e5dEwEFWP7uMEYZuH2v6Qf0QZsRx11iEtBBCw==",
+  "_location": "/preline",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "preline",
+    "name": "preline",
+    "escapedName": "preline",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/preline/-/preline-1.1.2.tgz",
+  "_shasum": "cee0a4872e5eed13d4cc4a85d4cd95f354567448",
+  "_spec": "preline",
+  "_where": "C:\\wamp64\\www\\trainsmart",
+  "author": {
+    "name": "Htmlstream"
+  },
+  "bugs": {
+    "url": "https://github.com/htmlstreamofficial/preline/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@popperjs/core": "^2.11.2"
+  },
+  "deprecated": false,
+  "description": "Preline UI is an open-source set of prebuilt UI components based on the utility-first Tailwind CSS framework.",
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "source-map-loader": "^3.0.1",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "homepage": "https://github.com/htmlstreamofficial/preline#readme",
+  "keywords": [
+    "preline",
+    "html",
+    "css",
+    "javascript",
+    "tailwind",
+    "tailwind components",
+    "tailwind elements",
+    "tailwind library",
+    "tailwind sections",
+    "tailwind css",
+    "tailwind ui",
+    "tailwind css react",
+    "tailwind css vue",
+    "tailwind css angular",
+    "tailwind css laravel"
+  ],
+  "license": "MIT",
+  "main": "dist/hs-ui.bundle.js",
+  "name": "preline",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htmlstreamofficial/preline.git"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.1.2"
+}
