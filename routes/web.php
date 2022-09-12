@@ -18,10 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('')
-    ->group(function(){
-        RouteHelper::includeRouteFiles(__DIR__.'/web');
-    });
+Route::prefix('')->group(function(){
+    RouteHelper::includeRouteFiles(__DIR__.'/web');
+});
 
 
 

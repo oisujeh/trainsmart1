@@ -9,6 +9,8 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
         <!-- Styles -->
         @livewireStyles
@@ -41,5 +43,10 @@
 
         @livewireScripts
 		<script src="./assets/preline/dist/hs-ui.bundle.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.selectpicker').select2();
+            });
+        </script>
     </body>
 </html>
