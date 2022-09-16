@@ -10,4 +10,5 @@ Route::middleware('auth')
         Route::get('participants/create', [ParticipantController::class,'create'])->name('create');
         Route::get('participants/show', [ParticipantController::class,'show'])->name('show');
         Route::post('participants', [ParticipantController::class,'store'])->name('store');
+        Route::delete('participants/{participant}', [ParticipantController::class,'destroy'])->name('destroy');
     });

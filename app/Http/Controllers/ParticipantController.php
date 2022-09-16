@@ -18,7 +18,8 @@ class ParticipantController extends Controller
 
     public function index(): Factory|View|Application
     {
-        $participants = Participant::with('enroll')->get();
+        $participants = Participant::all();
+        //$participants = Participant::with('enroll')->get();
         return view('participants.index', compact('participants'));
     }
 
@@ -135,11 +136,11 @@ class ParticipantController extends Controller
         return redirect('participants')->with('success', 'Successfully updated');
     }
 
-    public function destroy(Participant $participant)
+    public function destroy(Participant $participant): RedirectResponse
     {
-        if($participant->enroll()->count()){
+        /*if($participant->enroll()->count()){
             return back()->with('error', 'Cannot delete this person, because he/she has records');
-        }
+        }*/
         $participant->delete();
 
         return redirect()->route('participants.index')->with('success', 'Record deleted successfully');

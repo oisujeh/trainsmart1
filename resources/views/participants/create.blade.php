@@ -78,7 +78,7 @@
                                         <label for="cat" class="block text-sm font-bold text-gray-700">Category of Health Workers</label>
                                         <input type="text" name="cat" id="cat" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Category of Health Workers">
                                     </div>
-                                    
+
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="photo_use" class="block text-sm font-bold text-gray-700">Photo Use Consent</label>
                                         <ul class="items-center w-full text-sm font-bold text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">

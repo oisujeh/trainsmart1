@@ -36,6 +36,25 @@ class Participant extends Model
         'directorate_id',
     ];
 
+    /*public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }*/
+
+    public function setAttribute($key, $value)
+    {
+        if(in_array($key, ['name', 'email'])){
+            $this->attributes[$key] = strtolower($value);
+            return $this;
+        }
+        return parent::setAttribute($key, $value);
+    }
+
+    public function getNameAttribute($value): string
+    {
+       return ucwords($value);
+    }
+
 
     public function institution(): HasOne
     {

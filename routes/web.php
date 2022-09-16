@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\RouteHelper;
+use App\Http\Controllers\DirectorateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('directorate', DirectorateController::class);
+});
+
 Route::prefix('')->group(function(){
     RouteHelper::includeRouteFiles(__DIR__.'/web');
 });
-
-
 
 Route::middleware([
     'auth:sanctum',
