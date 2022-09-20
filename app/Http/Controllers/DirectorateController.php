@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Validator;
 
 class DirectorateController extends Controller
@@ -67,7 +68,7 @@ class DirectorateController extends Controller
      * Display the specified resource.
      *
      * @param Directorate $directorate
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Directorate $directorate)
     {

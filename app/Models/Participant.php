@@ -15,15 +15,11 @@ class Participant extends Model
 
     protected $table = 'participants';
     public $timestamps = true;
-
-
     protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at',
     ];
-
-
     protected $fillable = [
         'name',
         'email',
@@ -59,5 +55,10 @@ class Participant extends Model
     public function institution(): HasOne
     {
         return $this->hasOne('App\Models\Institution','id','institution_id');
+    }
+
+    public function directorate(): HasOne
+    {
+        return $this->hasOne('App\Models\Directorate','id','directorate_id');
     }
 }
