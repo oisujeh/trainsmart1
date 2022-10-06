@@ -6,10 +6,10 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-4">
-                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Ada Adamu Adewale's Info</h5>
+                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">{!! ucwords($participant->name) !!}'s Info</h5>
                         <a href="#" class="text-sm font-medium text-blue-600 hover:bg-gray-300 dark:text-blue-500">
                             <div class="relative flex items-center group">
                                 <div class="absolute right-0 flex items-center hidden mr-6 group-hover:flex">
@@ -25,12 +25,14 @@
                             <li class="py-3 sm:py-4">
                                 <div class="flex items-center space-x-4">
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Name
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            Ada Adamu Adewale
-                                        </p>
+                                        @if($participant->name)
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Name
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                {{ucwords($participant->name)}}
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                             </li>
@@ -38,11 +40,25 @@
                                 <div class="flex items-center space-x-4">
 
                                     <div class="flex-1 min-w-0">
+                                        @if($participant->email)
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Email Address
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                <a href="mailto:{{$participant->email}}">{{$participant->email}}</a>
+                                            </p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-3 sm:py-4">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Email Address
+                                           Sex
                                         </p>
                                         <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            email@windster.com
+                                            {{$participant->sex}}
                                         </p>
                                     </div>
                                 </div>
@@ -51,22 +67,10 @@
                                 <div class="flex items-center space-x-4">
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Michael Gough
+                                            Designation
                                         </p>
                                         <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            email@windster.com
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="py-3 sm:py-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Lana Byrd
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            email@windster.com
+                                            {{$participant->designation}}
                                         </p>
                                     </div>
                                 </div>
@@ -75,10 +79,10 @@
                                 <div class="flex items-center space-x-4">
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Thomes Lean
+                                            Organization
                                         </p>
                                         <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            email@windster.com
+                                            {{$participant->facility_name}}
                                         </p>
                                     </div>
                                 </div>

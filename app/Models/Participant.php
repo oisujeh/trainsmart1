@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -46,9 +47,11 @@ class Participant extends Model
         return parent::setAttribute($key, $value);
     }
 
-    public function getNameAttribute($value): string
+    protected function name(): Attribute
     {
-       return ucwords($value);
+        return Attribute::make(
+            get: fn ($value) => ucfirst($value)
+        );
     }
 
 

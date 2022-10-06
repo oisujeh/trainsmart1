@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Participant') }}
+            {{ __('Participant List') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -42,7 +42,7 @@
                                         font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"  onclick="
                                         let result = confirm('Are you sure you want to delete this record?');
                                         if(result){
-                                        event.preventDefault();
+                                        e.preventDefault();
                                         document.getElementById('delete-form-{{$participant->id}}').submit();
                                         }">
                                         <i class="uil uil-trash-alt"></i>
@@ -52,12 +52,12 @@
                                         </form>
                                     </a>
 
-                                    <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500
+                                    <a href="{{URL::to('participants/show/'.$participant->id)}}" class="text-white bg-gradient-to-r from-green-400 via-green-500
                                         to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300
                                         dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80
                                         font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
                                         <i class="uil uil-eye"></i>
-                                    </button>
+                                    </a>
                                     <button type="button" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600
                                         hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800
                                         shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5

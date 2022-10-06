@@ -76,18 +76,13 @@ class ParticipantController extends Controller
     public function show($id): Factory|View|Application
     {
         $participant = DB::table('participants')
-            ->join('enroll_training','enroll_training.participant_id', '=', 'participant.id')
-            ->join('institutions', 'participants.institution_id', '=', 'institution.id')
-            ->join('trainings','enroll_training.training_id', '=', 'training.id')
-            ->join('trainingprograms','trainings.trainingprogram_id', '=', 'trainingprogram.id')
-            ->join('programs','trainingprograms.program_id', '=', 'program.id')
+            ->join('institutions', 'participants.institution_id', '=', 'institutions.id')
             ->select(array('participants.name as name','participants.sex as sex','participants.email as email',
-                'participants.designation as designation', 'institutions.facility_name as facility_name', 'trainingprograms.name as Title',
-                DB::raw('Count(enroll_training.training_id) as attendedCount')))
-            ->where('participants.id', $id)->orderBy('Title')->first();
+                'participants.designation as designation', 'institutions.facility_name as facility_name'))
+            ->where('participants.id', $id)->first();
 
         //dd($participant);
-        return view('participants.show');
+        return view('participants.show',compact('participant'));
     }
 
     public function edit(Participant $participant): Factory|View|Application
