@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @method static find($id)
+ * @method static whereHas(string $string, \Closure $param)
  */
 class TrainingTitle extends Model
 {
@@ -32,11 +34,9 @@ class TrainingTitle extends Model
         return ucwords($value);
     }
 
-    public function directorate(){
+    public function directorate(): HasOne
+    {
         return $this->hasOne('App\Models\Directorate', 'id','directorate_id');
     }
 
-    /*public function directorate(){
-        return $this->hasOne('App\Models\Directorate', 'id','directorate_id');
-    }*/
 }
