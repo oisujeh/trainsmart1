@@ -85,8 +85,9 @@ class ParticipantController extends Controller
         return view('participants.show',compact('participant'));
     }
 
-    public function edit(Participant $participant): Factory|View|Application
+    public function edit($id): Factory|View|Application
     {
+        $participant = Participant::find($id);
         $selectedInstitution = Institution::first()->insitution_id;
         $institutions = Institution::all();
         return view('participants.edit', compact('participant', 'institutions','selectedInstitution'));

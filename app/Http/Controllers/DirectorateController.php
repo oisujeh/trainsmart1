@@ -32,7 +32,7 @@ class DirectorateController extends Controller
     public function create(): View|Factory|Application
     {
         $directorate = Directorate::all();
-        return view ('directorate.create');
+        return view ('directorates.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class DirectorateController extends Controller
         ]);
 
         $directorate->save();
-        return redirect()->route('directorate.index')->with('success', 'Directorate Added');
+        return redirect()->route('directorates.index')->with('success', 'Directorate Added');
     }
 
     /**
@@ -83,7 +83,7 @@ class DirectorateController extends Controller
      */
     public function edit(Directorate $directorate): View|Factory|Application
     {
-        return view('directorate.edit', compact('directorate'));
+        return view('directorates.edit', compact('directorate'));
     }
 
     /**
@@ -125,6 +125,6 @@ class DirectorateController extends Controller
         $directorate->delete();
         return redirect()->route('directorate.index')->with('success', 'Deleted successfully');*/
         $directorate->delete();
-        return redirect()->route('directorate.index')->with('success', 'Deleted successfully');
+        return redirect()->route('directorates.index')->with('success', 'Deleted successfully');
     }
 }

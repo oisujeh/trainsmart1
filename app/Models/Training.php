@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
 class Training extends Model
 {
     use HasFactory;
@@ -19,7 +20,7 @@ class Training extends Model
         'start_date',
         'end_date',
         'location',
-        'training_method',
+        'method',
         'venue',
     ];
 

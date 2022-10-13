@@ -32,7 +32,7 @@ class TrainingController extends Controller
     public function create()
     {
         $directorate = DB::table('directorates')->get();
-        return view('training.create', compact('directorate'));
+        return view('trainings.create', compact('directorate'));
     }
 
     public function submain($id)
@@ -46,17 +46,51 @@ class TrainingController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validator = Validator::make(
             $request->all(),
             [
+                'training_title_id' => 'required',
+                'directorate_id' => 'required',
+                'location' => 'required',
+                'venue' => 'required',
+                'method' => 'required',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after:start_date',
 
+            ],
+            [
+                'end_date.after' => 'End Date cannot be before start date',
             ]
         );
         if($validator->fails()){
             return back()->withErrors($validator)->withInput();
         }
+
+        $training = Training::create(
+            [
+                'training_title_id' => strip_tags($request->input('training_title_id')),
+                'directorate_id' => strip_tags($request->input('directorate_id')),
+                'location'   => strip_tags($request->input('location')),
+                'venue'   => strip_tags($request->input('venue')),
+                'method'   => strip_tags($request->input('method')),
+                'start_date' => strip_tags($request->input('start_date')),
+                'end_date' => strip_tags($request->input('end_date')),
+            ]
+        );
+
+        if(Training::where('training_title_id','=',$training->training_title_id)
+            ->where('directorate_id','=',$training->directorate_id)
+            ->where('location','=',$training->location)
+            ->where('start_date','=',$training->start_date)
+            ->where('end_date','=',$training->end_date)
+            ->exists()){
+
+            return back()->withErrors('This training has already been added. Contact your administrator');
+        }
+
+        $training->save();
 
         return redirect('trainings')->with('success','Created');
     }

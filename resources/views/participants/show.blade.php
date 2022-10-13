@@ -10,7 +10,7 @@
                 <div class="p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-4">
                         <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">{!! ucwords($participant->name) !!}'s Info</h5>
-                        <a href="#" class="text-sm font-medium text-blue-600 hover:bg-gray-300 dark:text-blue-500">
+                        <a href="{{URL::to('/participants')}}" class="text-sm font-medium text-blue-600 hover:bg-gray-300 dark:text-blue-500">
                             <div class="relative flex items-center group">
                                 <div class="absolute right-0 flex items-center hidden mr-6 group-hover:flex">
                                     <span class="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">Back</span>

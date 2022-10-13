@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
+/**
+ * @method static find($id)
+ */
 class Participant extends Model
 {
     use HasFactory;

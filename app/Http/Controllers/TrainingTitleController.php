@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class TrainingTitleController extends Controller
@@ -41,19 +42,34 @@ class TrainingTitleController extends Controller
      *
      * @param Request $request
      * @return Application|RedirectResponse|Redirector
-     * @throws ValidationException
      */
     public function store(Request $request): Redirector|RedirectResponse|Application
     {
-        $this->validate($request,[
-            'title' => 'required|max:100',
-            'directorate'=> 'required'
-        ]);
-        $obj = new TrainingTitle();
-        $obj->title = $request->title;
-        $obj->directorate_id = $request->directorate;
-        $obj->save();
+        $validator = Validator::make($request->all(),
+            [
+                'title' => 'required|unique:training_titles',
+                'directorate_id' => 'required',
+            ],
+            [
+                'unique'  => 'This title already exist, do not create another by changing the title.',
+            ]
+        );
+
+        if($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $title = TrainingTitle::create(
+            [
+                'title' => strip_tags($request->input('name')),
+                'directorate_id' => strip_tags($request->input('directorate_id')),
+            ]
+        );
+
+        $title->save();
+
         return redirect('titles')->with('success','Training Title Added');
+
     }
 
     /**

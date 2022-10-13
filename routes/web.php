@@ -2,6 +2,7 @@
 
 use App\Helpers\RouteHelper;
 use App\Http\Controllers\DirectorateController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,8 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::resource('directorate', DirectorateController::class);
+    Route::resource('directorates', DirectorateController::class);
+    Route::resource('trainings', TrainingController::class);
 });
 
 Route::prefix('')->group(function(){
