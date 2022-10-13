@@ -61,7 +61,7 @@ class TrainingTitleController extends Controller
 
         $title = TrainingTitle::create(
             [
-                'title' => strip_tags($request->input('name')),
+                'title' => strip_tags($request->input('title')),
                 'directorate_id' => strip_tags($request->input('directorate_id')),
             ]
         );

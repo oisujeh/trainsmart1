@@ -23,6 +23,8 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('directorates', DirectorateController::class);
     Route::resource('trainings', TrainingController::class);
+
+    Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
 });
 
 Route::prefix('')->group(function(){
@@ -38,3 +40,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');

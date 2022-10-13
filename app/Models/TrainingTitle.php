@@ -39,4 +39,9 @@ class TrainingTitle extends Model
         return $this->hasOne('App\Models\Directorate', 'id','directorate_id');
     }
 
+    public function training(): HasOne
+    {
+        return $this->hasOne('App\Models\Training', 'id','training_id');
+    }
+
 }
