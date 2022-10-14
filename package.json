@@ -17,6 +17,7 @@
         "vite": "^2.9.11"
     },
     "dependencies": {
+        "flowbite-datepicker": "^1.2.2",
         "preline": "^1.1.2"
     }
 }

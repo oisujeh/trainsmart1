@@ -15,9 +15,9 @@
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="institution" class="block text-sm font-bold text-gray-700">Institution</label>
+                                        <label for="institution" class="block text-sm font-bold text-gray-700">Directorate</label>
                                         {{csrf_field()}}
-                                        <select id="sub_category_name" name="institution_id" class="selectpicker mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                        <select id="sub_category_name" name="directorate_id" class="selectpicker mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                             <option value="" disabled selected hidden>Choose Institution</option>
                                             @foreach($directorate as $item)
                                                 <option value="{{$item->id}}">{!! ucwords($item->name) !!}</option>
@@ -32,26 +32,57 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="cat" class="block text-sm font-bold text-gray-700">Category of Health Workers</label>
-                                        <input type="text" name="cat" id="cat" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Category of Health Workers">
+                                        <label for="location" class="block text-sm font-bold text-gray-700">Organizing Office</label>
+                                        <select id="location" name="location" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                            <option value="" disabled selected hidden>Choose</option>
+                                            <option value="Abuja">Abuja</option>
+                                            <option value="Benue">Benue</option>
+                                            <option value="Ogun">Ogun</option>
+                                            <option value="Ondo">Ondo</option>
+                                            <option value="Oyo">Oyo</option>
+                                            <option value="Plateau">Plateau</option>
+                                        </select>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="photo_use" class="block text-sm font-bold text-gray-700">Photo Use Consent</label>
-                                        <ul class="items-center w-full text-sm font-bold text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                                <div class="flex items-center pl-3">
-                                                    <input checked id="horizontal-list-radio-yes" type="radio" value="Yes" name="photo_consent" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="horizontal-list-radio-yes" class="py-3 ml-2 w-full text-sm font-bold text-gray-900 dark:text-gray-300">Yes</label>
-                                                </div>
-                                            </li>
-                                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                                <div class="flex items-center pl-3">
-                                                    <input id="horizontal-list-radio-no" type="radio" value="No" name="photo_consent" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="horizontal-list-radio-no" class="py-3 ml-2 w-full text-sm font-bold text-gray-900 dark:text-gray-300">No</label>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                        <label for="method" class="block text-sm font-bold text-gray-700">Training Method</label>
+                                        <select id="method" name="method" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                            <option value="" disabled selected hidden>Choose Training Method</option>
+                                            <option value="Physical Meeting">Physical Meeting</option>
+                                            <option value="Virtual">Virtual</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3 form-floating">
+                                            <input type="date" name="start_date"
+                                                   class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+                                                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+                                                   focus:border-blue-600 focus:outline-none"
+                                                   placeholder="Select a date" />
+                                            <label for="floatingInput" class="text-gray-700">Start Date</label>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3 form-floating">
+                                        <input type="date" name="end_date"
+                                               class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+                                                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+                                                   focus:border-blue-600 focus:outline-none"
+                                               placeholder="Select a date" />
+                                        <label for="floatingInput" class="text-gray-700">End Date</label>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="venue" class="block text-sm font-bold text-gray-700">Venue</label>
+                                        <label>
+                                            <input type="text" name="venue" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required/>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="comment" class="block text-sm font-bold text-gray-700">Training Information</label>
+                                        <label>
+                                            <input type="text" name="comment" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required/>
+                                        </label>
                                     </div>
 
                                 </div>

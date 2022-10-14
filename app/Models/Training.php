@@ -22,6 +22,7 @@ class Training extends Model
         'location',
         'method',
         'venue',
+
     ];
 
     public function directorate(): HasOne

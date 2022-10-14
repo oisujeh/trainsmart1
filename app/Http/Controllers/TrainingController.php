@@ -68,8 +68,17 @@ class TrainingController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $training = Training::create(
+        $training = Training::firstOrCreate(
             [
+                'training_title_id' => strip_tags($request->input('training_title_id')),
+                'directorate_id' => strip_tags($request->input('directorate_id')),
+                'location'   => strip_tags($request->input('location')),
+                'venue'   => strip_tags($request->input('venue')),
+                'method'   => strip_tags($request->input('method')),
+                'start_date' => strip_tags($request->input('start_date')),
+                'end_date' => strip_tags($request->input('end_date')),
+            ]
+            ,[
                 'training_title_id' => strip_tags($request->input('training_title_id')),
                 'directorate_id' => strip_tags($request->input('directorate_id')),
                 'location'   => strip_tags($request->input('location')),
@@ -80,17 +89,22 @@ class TrainingController extends Controller
             ]
         );
 
-        if(Training::where('training_title_id','=',$training->training_title_id)
-            ->where('directorate_id','=',$training->directorate_id)
-            ->where('location','=',$training->location)
-            ->where('start_date','=',$training->start_date)
-            ->where('end_date','=',$training->end_date)
-            ->exists()){
+        /*foreach($request->input('training_title_id') as $training_title_id){
+            if(Training::where('training_title_id','=',$training->training_title_id)
+                ->where('directorate_id','=',$training->directorate_id)
+                ->where('location','=',$training->location)
+                ->where('start_date','=',$training->start_date)
+                ->where('end_date','=',$training->end_date)
+                ->exists()){
 
-            return back()->withErrors('This training has already been added. Contact your administrator');
-        }
+                return back()->withErrors('This training has already been added. Contact your administrator');
+            }
+            $training->save();
+
+        }*/
 
         $training->save();
+
 
         return redirect('trainings')->with('success','Created');
     }
