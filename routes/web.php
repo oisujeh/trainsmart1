@@ -1,6 +1,8 @@
 <?php
 
 use App\Helpers\RouteHelper;
+use App\Http\Controllers\DirectorateController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +20,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('directorates', DirectorateController::class);
+    Route::resource('trainings', TrainingController::class);
+
+    Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
+});
+
 Route::prefix('')->group(function(){
     RouteHelper::includeRouteFiles(__DIR__.'/web');
 });
-
-
 
 Route::middleware([
     'auth:sanctum',
@@ -33,3 +40,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');

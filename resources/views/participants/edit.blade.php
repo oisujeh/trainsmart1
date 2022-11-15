@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Participant') }}
+            {{ __('Edit participant') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -9,19 +9,20 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="mt-5 md:mt-0 md:col-span-2">
                     <x-jet-validation-errors class="mt-5 ml-2 md:mt-0 md:col-span-2" />
-                    <form action="{{route('participants.store')}}" method="POST" class="">
+                    <form action="{{route('participants.update',$participant->id)}}" method="post" class="">
+                        @method('PATCH')
                         {{csrf_field()}}
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                         <label for="full-name" class="block text-sm font-bold text-gray-700">Full Name</label>
-                                        <input type="text" name="name" value="{{ old('name') }}" id="full-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Enter full name">
+                                        <input type="text" name="name" value="{{$participant->name}}" id="full-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Enter full name">
                                     </div>
                                     <div class="col-span-6 sm:col-span-3 lg:col-span-2 {{ $errors->has('email') ? ' has-error ': '' }}">
                                         <div class="col-span-6 sm:col-span-3 lg:col-span-2 ">
                                             <label for="email" class="block text-sm font-bold text-gray-700">Email</label>
-                                            <input type="email" name="email" id="email" value="{{ old('email') }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Email Address">
+                                            <input type="email" name="email" id="email" value="{{$participant->email}}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Email Address">
                                         </div>
                                         @if($errors->has('email'))
                                             <span class="mt-3 text-sm text-red-600">
@@ -48,18 +49,18 @@
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="phone" class="block text-sm font-bold text-gray-700">Phone Number</label>
-                                        <input type="text" name="phone" id="phone" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Enter Phone Number">
+                                        <input type="text" name="phone" id="phone" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Enter Phone Number" value="{{$participant->phone}}">
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="designation" class="block text-sm font-bold text-gray-700">Designation</label>
-                                        <input type="text" name="designation" id="designation" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Position/Designation">
+                                        <input type="text" name="designation" id="designation" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Position/Designation" value="{{$participant->designation}}">
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="institution" class="block text-sm font-bold text-gray-700">Institution</label>
                                         {{csrf_field()}}
                                         <select id="institution" name="institution_id" class="selectpicker mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                             <option value="" disabled selected hidden>Choose Institution</option>
-                                           @foreach($institutions as $item)
+                                            @foreach($institutions as $item)
                                                 <option value="{{$item->id}}">{{$item->facility_name}}</option>
                                             @endforeach
                                         </select>
@@ -109,3 +110,4 @@
         </div>
     </div>
 </x-app-layout>
+<?php

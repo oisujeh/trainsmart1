@@ -18,7 +18,8 @@ class ParticipantController extends Controller
 
     public function index(): Factory|View|Application
     {
-        $participants = Participant::with('enroll')->get();
+        $participants = Participant::all();
+        //$participants = Participant::with('enroll')->get();
         return view('participants.index', compact('participants'));
     }
 
@@ -75,22 +76,18 @@ class ParticipantController extends Controller
     public function show($id): Factory|View|Application
     {
         $participant = DB::table('participants')
-            ->join('enroll_training','enroll_training.participant_id', '=', 'participant.id')
-            ->join('institutions', 'participants.institution_id', '=', 'institution.id')
-            ->join('trainings','enroll_training.training_id', '=', 'training.id')
-            ->join('trainingprograms','trainings.trainingprogram_id', '=', 'trainingprogram.id')
-            ->join('programs','trainingprograms.program_id', '=', 'program.id')
+            ->join('institutions', 'participants.institution_id', '=', 'institutions.id')
             ->select(array('participants.name as name','participants.sex as sex','participants.email as email',
-                'participants.designation as designation', 'institutions.facility_name as facility_name', 'trainingprograms.name as Title',
-                DB::raw('Count(enroll_training.training_id) as attendedCount')))
-            ->where('participants.id', $id)->orderBy('Title')->first();
+                'participants.designation as designation', 'institutions.facility_name as facility_name'))
+            ->where('participants.id', $id)->first();
 
         //dd($participant);
-        return view('participants.show');
+        return view('participants.show',compact('participant'));
     }
 
-    public function edit(Participant $participant): Factory|View|Application
+    public function edit($id): Factory|View|Application
     {
+        $participant = Participant::find($id);
         $selectedInstitution = Institution::first()->insitution_id;
         $institutions = Institution::all();
         return view('participants.edit', compact('participant', 'institutions','selectedInstitution'));
@@ -135,11 +132,11 @@ class ParticipantController extends Controller
         return redirect('participants')->with('success', 'Successfully updated');
     }
 
-    public function destroy(Participant $participant)
+    public function destroy(Participant $participant): RedirectResponse
     {
-        if($participant->enroll()->count()){
+        /*if($participant->enroll()->count()){
             return back()->with('error', 'Cannot delete this person, because he/she has records');
-        }
+        }*/
         $participant->delete();
 
         return redirect()->route('participants.index')->with('success', 'Record deleted successfully');
