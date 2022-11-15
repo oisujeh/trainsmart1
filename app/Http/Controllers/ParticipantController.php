@@ -12,15 +12,72 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Exceptions\Exception;
 
 class ParticipantController extends Controller
 {
 
-    public function index(): Factory|View|Application
+    public function index(Request $request): Factory|View|Application
     {
-        $participants = Participant::all();
-        //$participants = Participant::with('enroll')->get();
-        return view('participants.index', compact('participants'));
+        return view('participants.index');
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function fetch(Request $request)
+    {
+        $col_order = ['name','email','sex','phone'];
+        $total_data = Participant::count();
+        $limit = $request->input(key:'length');
+        $start = $request->input(key:'start');
+        $order = $col_order[$request->input(key:'order.0.column')];
+        $dir = $request->input(key:'order.0.dir');
+
+        if(empty($request->input(key:'search.value'))){
+            $post = Participant::offset($start)->limit($limit)->orderBy($order,$dir)->get();
+            $total_filtered = Participant::count();
+        }else{
+            $search = $request->input(key:'search.value');
+            $post = Participant::where('name','like',"%{$search}")
+                ->orwhere('email','like',"%{$search}")
+                ->orwhere('sex','like',"%{$search}")
+                ->orwhere('phone','like',"%{$search}")
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order,$dir)
+                ->get();
+
+            $total_filtered = Participant::where('name','like',"%{$search}")
+                ->orwhere('email','like',"%{$search}")
+                ->orwhere('sex','like',"%{$search}")
+                ->orwhere('phone','like',"%{$search}")
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order,$dir)
+                ->count();
+        }
+
+        $data = array();
+        if($post){
+            foreach ($post as $row){
+                $nest['name'] = $row->name;
+                $nest['email'] = $row->email;
+                $nest['sex'] = $row->sex;
+                $nest['phone'] = $row->phone;
+                $nest['facility_name'] = $row->institution->facility_name;
+                $nest['Action'] = '<a href="">Edit</a>';
+                $data[] = $nest;
+            }
+        }
+        $json = array(
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => intval($total_data),
+            'recordsFiltered' => intval($total_filtered),
+            'data' => $data
+        );
+
+        echo json_encode($json);
     }
 
 
@@ -61,6 +118,7 @@ class ParticipantController extends Controller
                 'sex' =>    strip_tags($request->input('sex')),
                 'institution_id' => strip_tags($request->input('institution_id')),
                 'directorate_id' => strip_tags($request->input('directorate_id')),
+                'category' => strip_tags($request->input('category')),
                 'designation'   => strip_tags($request->input('designation')),
                 'photo_consent'   => strip_tags($request->input('photo_consent')),
                 /*'category' => strip_tags($request->input('category')),*/

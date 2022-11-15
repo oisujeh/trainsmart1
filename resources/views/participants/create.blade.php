@@ -76,7 +76,7 @@
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="cat" class="block text-sm font-bold text-gray-700">Category of Health Workers</label>
-                                        <input type="text" name="cat" id="cat" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Category of Health Workers">
+                                        <input type="text" name="category" id="cat" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Category of Health Workers">
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">

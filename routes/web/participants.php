@@ -11,8 +11,8 @@ Route::middleware('auth')
         Route::get('participants/show/{id}', [ParticipantController::class,'show'])->name('show');
         Route::get('participants/{id}/edit', [ParticipantController::class,'edit'])->name('edit');
         Route::post('participants/update', [ParticipantController::class,'store'])->name('store');
-
         Route::put('participants', [ParticipantController::class,'update'])->name('update');
-
         Route::delete('participants/{participant}', [ParticipantController::class,'destroy'])->name('destroy');
+
+        Route::get('participants/fetch', [ParticipantController::class,'fetch'])->name('fetch');
     });

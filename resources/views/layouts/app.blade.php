@@ -13,7 +13,7 @@
         <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
         <!--Regular Datatables CSS-->
-        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
         <!--Responsive Extension Datatables CSS-->
         {{--<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">--}}
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.css"/>
@@ -56,7 +56,7 @@
 		<script src="./assets/preline/dist/hs-ui.bundle.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <!--Datatables -->
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -77,19 +77,7 @@
                     .responsive.recalc();
             });*/
         </script>
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable({
-                    responsive: true,
-                    dom: 'Blfrtip',
-                    "buttons": [
-                        'copy','csv','excel'
-                    ],
-                })
-                    .columns.adjust()
-                    .responsive.recalc();
-            });
-        </script>
+
 
     </body>
 </html>
