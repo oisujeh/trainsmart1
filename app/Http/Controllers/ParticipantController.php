@@ -61,12 +61,22 @@ class ParticipantController extends Controller
         $data = array();
         if($post){
             foreach ($post as $row){
+                $show = route('participants.show',$row->id);
+                $participants = $row->id;
+                $edit = route('participants.edit',$row->id);
+                $delete = route('participants.destroy',$row->id);
+                $nest['id'] = $row->id;
                 $nest['name'] = $row->name;
                 $nest['email'] = $row->email;
                 $nest['sex'] = $row->sex;
                 $nest['phone'] = $row->phone;
                 $nest['facility_name'] = $row->institution->facility_name;
-                $nest['Action'] = '<a href="">Edit</a>';
+                $nest['Action'] = "&emsp;<td class='px-6 py-4'>
+                                   &emsp;<div class='flex justify-end items-center md:py-1 px-1'>
+                                   &emsp;<a href='$show' class='bg-brightGreenLight
+                                        font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'><i class='uil uil-eye'></i></a>
+                                   &emsp;<a href='$edit' class='bg-blue-500
+                                        font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'><i class='uil uil-edit'></i></a></div></td>";
                 $data[] = $nest;
             }
         }

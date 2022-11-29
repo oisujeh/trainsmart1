@@ -14,7 +14,7 @@
                 </a>
             </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 mt-6 lg:mt-0 rounded shadow">
-                <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <table id="example" class="stripe" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                     <tr>
                         <th data-priority="1">Name</th>
@@ -22,7 +22,8 @@
                         <th data-priority="3">Sex</th>
                         <th data-priority="4">Phone No</th>
                         <th data-priority="5">Institution</th>
-                        <th>Action</th>
+                        <th data-priority="5">Action</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -59,5 +60,28 @@
             });
         });
     </script>
+    {{--<script>
+        $(".delete").click(function(){
+            $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN':$('meta[name=csrf-token]').attr('content')
+                }
+            });
+            $.ajax({
+                url: 'participants/delete'+id,
+                dataType: 'json',
+                type:'DELETE',
+                data:{
+                    "id":id
+                },
+                success: function(response){
+                    console.log(response);
+                },
+                error: function(xhr){
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    </script>--}}
 </x-app-layout>
 
