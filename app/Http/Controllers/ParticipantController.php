@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Exceptions\Exception;
 
 class ParticipantController extends Controller
@@ -19,6 +21,13 @@ class ParticipantController extends Controller
 
     public function index(Request $request): Factory|View|Application
     {
+        /*auth()->user()->assignRole('oladele');*/
+
+        /*$role = Role::create(['name'=>'admin']);*/
+        /*Permission::create(['name'=>'can delete']);*/
+        /*$role = Role::findById(1);
+        $permission = Permission::findById(1);
+        $role->givePermissionTo($permission);*/
         return view('participants.index');
     }
 
@@ -27,8 +36,9 @@ class ParticipantController extends Controller
      */
     public function fetch(Request $request)
     {
+        $ola = Participant::count();
         $col_order = ['name','email','sex','phone'];
-        $total_data = Participant::count();
+        $total_data = $ola;
         $limit = $request->input(key:'length');
         $start = $request->input(key:'start');
         $order = $col_order[$request->input(key:'order.0.column')];
@@ -36,7 +46,7 @@ class ParticipantController extends Controller
 
         if(empty($request->input(key:'search.value'))){
             $post = Participant::offset($start)->limit($limit)->orderBy($order,$dir)->get();
-            $total_filtered = Participant::count();
+            $total_filtered = $ola;
         }else{
             $search = $request->input(key:'search.value');
             $post = Participant::where('name','like',"%{$search}")
@@ -62,21 +72,25 @@ class ParticipantController extends Controller
         if($post){
             foreach ($post as $row){
                 $show = route('participants.show',$row->id);
-                $participants = $row->id;
                 $edit = route('participants.edit',$row->id);
-                $delete = route('participants.destroy',$row->id);
                 $nest['id'] = $row->id;
                 $nest['name'] = $row->name;
                 $nest['email'] = $row->email;
                 $nest['sex'] = $row->sex;
                 $nest['phone'] = $row->phone;
                 $nest['facility_name'] = $row->institution->facility_name;
-                $nest['Action'] = "&emsp;<td class='px-6 py-4'>
-                                   &emsp;<div class='flex justify-end items-center md:py-1 px-1'>
-                                   &emsp;<a href='$show' class='bg-brightGreenLight
-                                        font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'><i class='uil uil-eye'></i></a>
-                                   &emsp;<a href='$edit' class='bg-blue-500
-                                        font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'><i class='uil uil-edit'></i></a></div></td>";
+                $nest['Action'] = "
+                                  <div class='flex justify-end items-center md:py-1 px-1'>
+                                  <td class='pt-1 py-1 px-1'>
+                                  <a href='$show' class='button bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 mr-2 mb-2 rounded'>
+                                        <i class='uil uil-eye'></i>
+                                     </a>
+                                  <a href='$edit' class='button bg-brightGreenLight hover:bg-green-700 text-white font-bold py-1 px-4 mr-2 mb-2 rounded'>
+                                        <i class='uil uil-edit'></i>
+                                     </a>
+                                     <a href='$edit' class='button bg-red-100 hover:bg-red-700 text-white font-bold py-1 px-4 mr-2 mb-2 rounded'>
+                                        <i class='uil uil-trash'></i>
+                                     </a></td></div>";
                 $data[] = $nest;
             }
         }
@@ -103,7 +117,8 @@ class ParticipantController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:participants',
-                'phone' => 'required|numeric|digits:11|starts_with:0',
+               /* 'phone' => 'required|numeric|digits:11|starts_with:0|unique:participants',*/
+                'phone' => ['required','unique:participants','regex:/^((\+234)|0)[789]\d{9}$/'],
                 'sex' =>    'required',
                 'institution_id' => 'required',
                 'directorate_id' => 'required',
@@ -112,7 +127,7 @@ class ParticipantController extends Controller
             [
                 'unique'  => 'Participant already exist.',
                 'digits' => 'Phone number more than 11 digits',
-                'starts_with' => 'The phone number should start with 0',
+                'regex' => 'The phone number is not valid',
             ]
         );
 

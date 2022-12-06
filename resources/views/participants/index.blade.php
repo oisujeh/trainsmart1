@@ -17,17 +17,18 @@
                 <table id="example" class="stripe" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                     <tr>
-                        <th data-priority="1">Name</th>
-                        <th data-priority="2">Email</th>
-                        <th data-priority="3">Sex</th>
-                        <th data-priority="4">Phone No</th>
-                        <th data-priority="5">Institution</th>
-                        <th data-priority="5">Action</th>
-
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Sex</th>
+                        <th>Phone No</th>
+                        <th>Institution</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
+                        <tr class="transition-all hover:bg-gray-100 hover:shadow-lg pt-1">
 
+                        </tr>
                     </tbody>
                 </table>
 
@@ -55,8 +56,10 @@
                 responsive: true,
                 dom: 'Blfrtip',
                 "buttons": [
-                    'copy','csv','excel'
+                    'copy','csv','excel','print'
                 ],
+                   "lengthMenu": [[50,100,200],[50,100,200]]
+
             });
         });
     </script>
