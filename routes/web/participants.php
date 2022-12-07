@@ -13,6 +13,6 @@ Route::middleware('auth')
         Route::post('participants/update', [ParticipantController::class,'store'])->name('store');
         Route::put('participants', [ParticipantController::class,'update'])->name('update');
         Route::delete('participants/{participant}', [ParticipantController::class,'destroy'])->name('destroy');
-
+        Route::post('/getInstitutions',[ParticipantController::class,'getInstitutions'])->name('getInstitutions');
         Route::get('participants/fetch', [ParticipantController::class,'fetch'])->name('fetch');
     });

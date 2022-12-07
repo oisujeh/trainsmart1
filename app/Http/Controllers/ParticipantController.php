@@ -7,6 +7,7 @@ use App\Models\Participant;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -79,8 +80,7 @@ class ParticipantController extends Controller
                 $nest['sex'] = $row->sex;
                 $nest['phone'] = $row->phone;
                 $nest['facility_name'] = $row->institution->facility_name;
-                $nest['Action'] = "
-                                  <div class='flex justify-end items-center md:py-1 px-1'>
+                $nest['Action'] = "<div class='flex justify-end items-center md:py-1 px-1'>
                                   <td class='pt-1 py-1 px-1'>
                                   <a href='$show' class='button bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 mr-2 mb-2 rounded'>
                                         <i class='uil uil-eye'></i>
@@ -223,5 +223,24 @@ class ParticipantController extends Controller
         $participant->delete();
 
         return redirect()->route('participants.index')->with('success', 'Record deleted successfully');
+    }
+
+    public function getInstitutions(Request $request): JsonResponse
+    {
+        $search = $request->search;
+        if($search == ''){
+            $institutions = Institution::orderby('facility_name', 'asc')->select('id','facility_name')->limit(10)->get();
+        }else{
+            $institutions = Institution::orderby('facility_name', 'asc')->select('id','facility_name')
+                ->where('facility_name','like', '%'.$search.'%')->limit(10)->get();
+        }
+        $response = array();
+        foreach($institutions as $inst){
+            $response[] = array(
+                "id"=>$inst->id,
+                "text"=>$inst->facility_name
+            );
+        }
+        return response()->json($response);
     }
 }

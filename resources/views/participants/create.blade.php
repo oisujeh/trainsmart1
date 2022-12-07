@@ -58,10 +58,9 @@
                                         <label for="institution" class="block text-sm font-bold text-gray-700">Institution</label>
                                         {{csrf_field()}}
                                         <select id="institution" name="institution_id" class="selectpicker mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                                            <option value="" disabled selected hidden>Choose Institution</option>
-                                           @foreach($institutions as $item)
-                                                <option value="{{$item->id}}">{{$item->facility_name}}</option>
-                                            @endforeach
+                                            <option value="0">
+
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -108,4 +107,34 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#institution').select2({
+                    minimumInputLength: 2,
+                    ajax:{
+                        url: "{{route('participants.getInstitutions')}}",
+                        type: "POST",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params){
+                            return{
+                                _token:"{{ csrf_token() }}",
+                                search: params.term
+                            };
+                        },
+                        processResults: function(response){
+                            return{
+                                results: response
+                            };
+                        },
+                        cache:true
+                    },
+                    allowClear:Boolean($(this).data('allow-clear')),
+                });
+            });
+        </script>
+    @endsection
 </x-app-layout>
+

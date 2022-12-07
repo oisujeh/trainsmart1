@@ -10,8 +10,6 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
         <!--Regular Datatables CSS-->
         <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
         <!--Responsive Extension Datatables CSS-->
@@ -54,7 +52,10 @@
 
         @livewireScripts
 		<script src="./assets/preline/dist/hs-ui.bundle.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="{{ asset('assets/js/select2.js') }}"></script>
+
         <!--Datatables -->
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
@@ -62,22 +63,11 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.js"></script>
-
         <script type="text/javascript">
             $(document).ready(function() {
                 $('.selectpicker').select2();
             });
-           /* $(document).ready(function() {
-
-                var table = $('#example').DataTable({
-                    responsive: true,
-
-                })
-                    .columns.adjust()
-                    .responsive.recalc();
-            });*/
         </script>
-
-
+        @yield('scripts')
     </body>
 </html>
