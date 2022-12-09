@@ -17,7 +17,7 @@
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="institution" class="block text-sm font-bold text-gray-700">Directorate</label>
                                         {{csrf_field()}}
-                                        <select id="sub_category_name" name="directorate_id" class="selectpicker mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                        <select id="sub_category_name" name="directorate_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                             <option value="" disabled selected hidden>Choose Institution</option>
                                             @foreach($directorate as $item)
                                                 <option value="{{$item->id}}">{!! ucwords($item->name) !!}</option>
@@ -96,27 +96,29 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#sub_category_name').on('change', function(){
-                let id = $(this).val();
-                $('#sub_category').empty();
-                $('#sub_category').append(`<option value="0" disabled selected>Processing...</option>`);
-                $.ajax({
-                    type: 'GET',
-                    url: '../submain/' + id,
-                    success: function (response){
-                        var response = JSON.parse(response);
-                        console.log(response);
-                        $('#sub_category').empty();
-                        $('#sub_category').append(`<option value="0" disabled selected>--Select--</option>`);
-                        response.forEach(element=>{
-                            $('#sub_category').append(`<option value="${element['id']}">${element['title'].toUpperCase()}</option>`);
-                        });
-                    }
+    @section('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#sub_category_name').on('change', function(){
+                    let id = $(this).val();
+                    $('#sub_category').empty();
+                    $('#sub_category').append(`<option value="0" disabled selected>Processing...</option>`);
+                    $.ajax({
+                        type: 'GET',
+                        url: '../submain/' + id,
+                        success: function (response){
+                            var response = JSON.parse(response);
+                            console.log(response);
+                            $('#sub_category').empty();
+                            $('#sub_category').append(`<option value="0" disabled selected>--Select--</option>`);
+                            response.forEach(element=>{
+                                $('#sub_category').append(`<option value="${element['id']}">${element['title'].toUpperCase()}</option>`);
+                            });
+                        }
+                    });
                 });
             });
-        });
-    </script>
+        </script>
+    @endsection
 </x-app-layout>
 

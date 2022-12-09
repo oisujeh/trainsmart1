@@ -9,10 +9,10 @@ Route::middleware('auth')
         Route::get('participants', [ParticipantController::class,'index'])->name('index');
         Route::get('participants/create', [ParticipantController::class,'create'])->name('create');
         Route::get('participants/show/{id}', [ParticipantController::class,'show'])->name('show');
-        Route::get('participants/{id}/edit', [ParticipantController::class,'edit'])->name('edit');
+        Route::get('participants/{id}/edit', [ParticipantController::class,'edit'])->name('edit')->middleware('permission:can delete');
         Route::post('participants/update', [ParticipantController::class,'store'])->name('store');
-
         Route::put('participants', [ParticipantController::class,'update'])->name('update');
-
         Route::delete('participants/{participant}', [ParticipantController::class,'destroy'])->name('destroy');
+        Route::post('/getInstitutions',[ParticipantController::class,'getInstitutions'])->name('getInstitutions');
+        Route::get('participants/fetch', [ParticipantController::class,'fetch'])->name('fetch');
     });

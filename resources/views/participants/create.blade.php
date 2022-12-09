@@ -58,25 +58,24 @@
                                         <label for="institution" class="block text-sm font-bold text-gray-700">Institution</label>
                                         {{csrf_field()}}
                                         <select id="institution" name="institution_id" class="selectpicker mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                                            <option value="" disabled selected hidden>Choose Institution</option>
-                                           @foreach($institutions as $item)
-                                                <option value="{{$item->id}}">{{$item->facility_name}}</option>
-                                            @endforeach
+                                            <option value="0">
+
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="directorate" class="block text-sm font-bold text-gray-700">Directorate</label>
                                         <select id="directorate" name="directorate_id" class="select2 mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                             <option value="" disabled selected hidden>Choose Directorate</option>
-                                            <option value="1">Strategic Information</option>
-                                            <option value="2">Clinical Services</option>
-                                            <option value="3">Administration/Human Resources</option>
+                                            @foreach($directorates as $dir)
+                                                <option value="{{$dir->id}}">{{$dir->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="cat" class="block text-sm font-bold text-gray-700">Category of Health Workers</label>
-                                        <input type="text" name="cat" id="cat" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Category of Health Workers">
+                                        <input type="text" name="category" id="cat" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required placeholder="Category of Health Workers">
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
@@ -108,4 +107,34 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#institution').select2({
+                    minimumInputLength: 2,
+                    ajax:{
+                        url: "{{route('participants.getInstitutions')}}",
+                        type: "POST",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params){
+                            return{
+                                _token:"{{ csrf_token() }}",
+                                search: params.term
+                            };
+                        },
+                        processResults: function(response){
+                            return{
+                                results: response
+                            };
+                        },
+                        cache:true
+                    },
+                    allowClear:Boolean($(this).data('allow-clear')),
+                });
+            });
+        </script>
+    @endsection
 </x-app-layout>
+
