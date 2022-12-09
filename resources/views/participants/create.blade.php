@@ -67,9 +67,9 @@
                                         <label for="directorate" class="block text-sm font-bold text-gray-700">Directorate</label>
                                         <select id="directorate" name="directorate_id" class="select2 mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                             <option value="" disabled selected hidden>Choose Directorate</option>
-                                            <option value="1">Strategic Information</option>
-                                            <option value="2">Clinical Services</option>
-                                            <option value="3">Administration/Human Resources</option>
+                                            @foreach($directorates as $dir)
+                                                <option value="{{$dir->id}}">{{$dir->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 

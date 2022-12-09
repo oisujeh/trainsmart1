@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Directorate;
 use App\Models\Institution;
 use App\Models\Participant;
 use Illuminate\Contracts\Foundation\Application;
@@ -100,7 +101,6 @@ class ParticipantController extends Controller
             'recordsFiltered' => intval($total_filtered),
             'data' => $data
         );
-
         echo json_encode($json);
     }
 
@@ -108,7 +108,8 @@ class ParticipantController extends Controller
     public function create(): View|Factory|Application
     {
         $institutions = Institution::all();
-        return view('participants.create',compact('institutions'));
+        $directorates = Directorate::all();
+        return view('participants.create',compact('institutions','directorates'));
     }
 
     public function store(Request $request): Redirector|Application|RedirectResponse
@@ -126,7 +127,7 @@ class ParticipantController extends Controller
             ],
             [
                 'unique'  => 'Participant already exist.',
-                'digits' => 'Phone number more than 11 digits',
+                /*'digits' => 'Phone number more than 11 digits',*/
                 'regex' => 'The phone number is not valid',
             ]
         );
@@ -149,11 +150,8 @@ class ParticipantController extends Controller
                 /*'category' => strip_tags($request->input('category')),*/
             ]
         );
-
         $participant->save();
-
         return redirect('participants')->with('success', 'Successfully added');
-
     }
 
     public function show($id): Factory|View|Application
@@ -183,7 +181,7 @@ class ParticipantController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:participants',
-                'phone' => 'required|numeric|digits:11|starts_with:0',
+                'phone' => ['required','unique:participants','regex:/^((\+234)|0)[789]\d{9}$/'],
                 'sex' =>    'required',
                 'institution_id' => 'required',
                 'directorate_id' => 'required',
@@ -191,8 +189,7 @@ class ParticipantController extends Controller
             ],
             [
                 'unique'  => 'Participant already exist.',
-                'digits' => 'Phone number more than 11 digits',
-                'starts_with' => 'The phone number should start with 0',
+                'regex' => 'The phone number is not valid',
             ]
         );
 
@@ -221,7 +218,6 @@ class ParticipantController extends Controller
             return back()->with('error', 'Cannot delete this person, because he/she has records');
         }*/
         $participant->delete();
-
         return redirect()->route('participants.index')->with('success', 'Record deleted successfully');
     }
 
