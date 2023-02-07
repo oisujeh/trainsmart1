@@ -8,21 +8,33 @@ use App\Models\Training;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\DB;
 
 class EnrollController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
-        //
+        $list = DB::table('enroll_trainings')
+            ->join('trainings','enroll_trainings.training_id','=','trainings.id')
+            ->join('participants','enroll_trainings.participant_id','=','participants.id')
+            ->join('directorates','trainings.directorate_id','=','directorates.id')
+            ->join('training_titles','trainings.training_title_id','=','training_titles.id')
+            ->select('enroll_trainings.id as id', 'participants.name as name','trainings.location as location',
+                'trainings.venue as venue','directorates.name as directorate','training_titles.title as training',
+                'trainings.start_date as start_date','trainings.end_date as end_date')
+            ->get();
+
+        return view ('enroll.index',compact('list'));
     }
 
     /**
@@ -50,8 +62,16 @@ class EnrollController extends Controller
      */
     public function store(Request $request): Redirector|RedirectResponse|Application
     {
-        $enroll = Enroll::firstOrCreate(array('participant_id' => $request['participant_id'],'training_id' => $request['training_id']));
-        return view('enroll.index',compact('enroll'));
+        foreach($request->input('participant_id') as $participant_id){
+            $saveInfo = new Enroll();
+            $saveInfo->participant_id = $participant_id;
+            $saveInfo->training_id = $request->input('training_id');
+            if(Enroll::where('participant_id','=',$saveInfo->participant_id)->where('training_id','=',$saveInfo->training_id)->exists()){
+                return back()->withErrors('A participant from this is already added to this training.');
+            }
+            $saveInfo->save();
+        }
+        return view('home');
     }
 
     /**
@@ -97,5 +117,23 @@ class EnrollController extends Controller
     public function destroy(enroll $cr)
     {
         //
+    }
+
+    public function getEmployees(Request $request): JsonResponse
+    {
+        $search = $request->search;
+        if($search == ''){
+            $participants = Participant::orderBy('name','asc')->select('id','name')->limit(10)->get();
+        }else{
+            $participants = Participant::orderBy('name','asc')->select('id','name')->where('name','like','%' .$search . '%')->limit(10)->get();
+        }
+        $response = array();
+        foreach($participants as $participant){
+            $response[] = array(
+                "id" => $participant->id,
+                "text" => $participant->name
+            );
+        }
+        return response()->json($response);
     }
 }

@@ -20,6 +20,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
         <!-- Styles -->
         @livewireStyles
@@ -52,8 +54,7 @@
 
         @livewireScripts
 		<script src="./assets/preline/dist/hs-ui.bundle.js"></script>
-        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
         <script src="{{ asset('assets/js/select2.js') }}"></script>
 
         <!--Datatables -->

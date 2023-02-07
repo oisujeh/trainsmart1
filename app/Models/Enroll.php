@@ -15,6 +15,8 @@ class Enroll extends Model
         'training_id',
     ];
 
+
+
     public function participant(): HasOne
     {
         return $this->hasOne('App\Models\Participant','id','participant_id');

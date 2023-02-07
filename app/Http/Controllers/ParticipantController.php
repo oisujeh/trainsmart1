@@ -89,9 +89,7 @@ class ParticipantController extends Controller
                                   <a href='$edit' class='button bg-brightGreenLight hover:bg-green-700 text-white font-bold py-1 px-4 mr-2 mb-2 rounded'>
                                         <i class='uil uil-edit'></i>
                                      </a>
-                                     <a href='$edit' class='button bg-red-100 hover:bg-red-700 text-white font-bold py-1 px-4 mr-2 mb-2 rounded'>
-                                        <i class='uil uil-trash'></i>
-                                     </a></td></div>";
+                                    </td></div>";
                 $data[] = $nest;
             }
         }
