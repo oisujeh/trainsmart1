@@ -35,7 +35,7 @@
                                                 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                             <option value="0"></option>
                                             @foreach($trainings as $training)
-                                                <option value="{{ $training->id}}">{{strtoupper($training->title->title)}} - Held in {{$training->location}} started on {{$training->start_date}}</option>
+                                                <option value="{{ $training->id}}">{{strtoupper($training->title->title)}} - Organized by {{$training->location}} started on {{$training->start_date}}</option>
                                             @endforeach
 
                                         </select>

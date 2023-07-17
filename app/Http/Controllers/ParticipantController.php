@@ -158,10 +158,21 @@ class ParticipantController extends Controller
             ->join('institutions', 'participants.institution_id', '=', 'institutions.id')
             ->select(array('participants.name as name','participants.sex as sex','participants.email as email',
                 'participants.designation as designation', 'institutions.facility_name as facility_name'))
-            ->where('participants.id', $id)->first();
+            ->where('participants.id', $id);
+
+        $participantTitles = DB::table('participants')
+            ->join('enroll_trainings', 'enroll_trainings.participant_id', '=', 'participants.id')
+            ->join('trainings', 'enroll_trainings.training_id', '=', 'trainings.id')
+            ->join('training_titles', 'trainings.training_title_id', '=', 'training_titles.id')
+            ->where('participant_id', $id)
+            ->select('training_titles.title','trainings.start_date')
+            ->get();
+
+        // Get the first participant from the collection
+        $participant = $participant->first();
 
         //dd($participant);
-        return view('participants.show',compact('participant'));
+        return view('participants.show', compact('participant', 'participantTitles'));
     }
 
     public function edit($id): Factory|View|Application

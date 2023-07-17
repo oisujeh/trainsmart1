@@ -87,6 +87,27 @@
                                     </div>
                                 </div>
                             </li>
+
+                            @if($participantTitles)
+                                <li class="pt-3 pb-0 sm:pt-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-md underline font-medium text-gray-900 truncate dark:text-white">
+                                                Trainings Attended
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                            <ul>
+                                                @foreach($participantTitles as $title)
+                                                    <li>{{ $loop->iteration }}. {{ ucwords($title->title) . ' - ' . date('d/m/Y', strtotime($title->start_date)) }}</li>
+                                                @endforeach
+                                            </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endif
+
+
                         </ul>
                     </div>
                 </div>

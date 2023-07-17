@@ -18,7 +18,7 @@
                                         <label for="institution" class="block text-sm font-bold text-gray-700">Directorate</label>
                                         {{csrf_field()}}
                                         <select id="sub_category_name" name="directorate_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                                            <option value="" disabled selected hidden>Choose Institution</option>
+                                            <option value="" disabled selected hidden>Choose Directorate</option>
                                             @foreach($directorate as $item)
                                                 <option value="{{$item->id}}">{!! ucwords($item->name) !!}</option>
                                             @endforeach

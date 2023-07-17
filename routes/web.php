@@ -43,4 +43,8 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/dashboard','App\Http\Controllers\DataController@counting');
+
 Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');
+
+Route::get('/dashboard','App\Http\Controllers\DataController@counting');
