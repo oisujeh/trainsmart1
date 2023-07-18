@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl sm:rounded-lg">
-                <div class="p-6 sm:px-20  border-b border-gray-200">
+                <div class="p-6 sm:px-20 bg-gray-100 border-b border-gray-200">
                     <!-- Top Left Buttons -->
                     <div class="flex justify-end md:py-1">
                         <a href="{{ url('/participants/create') }}"
@@ -31,7 +31,7 @@
                             <div class="flex items-start justify-between">
                                 <div class="flex flex-col space-y-2">
                                     <span class="text-white">Trainings</span>
-                                    <span class="text-lg text-white font-semibold">{{$trainings->count()}}</span>
+                                    <span class="text-lg text-white font-semibold">856</span>
                                 </div>
                                 <x-entypo-basecamp class="w-7 h-7 text-white"/>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="flex items-start justify-between">
                                 <div class="flex flex-col space-y-2">
                                     <span class="text-white">Participants</span>
-                                    <span class="text-lg text-white font-semibold">{{$participants->count()}}</span>
+                                    <span class="text-lg text-white font-semibold">{{$data}}</span>
                                 </div>
                                 <x-entypo-users class="w-7 h-7 text-white"/>
                             </div>
@@ -58,7 +58,7 @@
                             <div class="flex items-start justify-between">
                                 <div class="flex flex-col space-y-2">
                                     <span class="text-white">Future Trainings</span>
-                                    <span class="text-lg text-white font-semibold">{{$future_trainings->count()}}</span>
+                                    <span class="text-lg text-white font-semibold">1</span>
                                 </div>
                                 <x-entypo-ticket class="w-7 h-7 text-white"/>
                             </div>
@@ -94,28 +94,26 @@
                                         </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                            @foreach($future_trainings as $value)
-                                                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="text-sm text-gray-900">{{$value->directorate}}</div>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="text-sm text-gray-900">{{$value->title}}</div>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="text-sm text-gray-900">{{$value->location}}</div>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="text-sm text-gray-900">{{$value->method}}</div>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="text-sm text-gray-900">{{$value->start_date}}</div>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="text-sm text-gray-900">{{$value->end_date}}</div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                        <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">Clinical Services</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">AHD Training</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">Ondo</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">Physical Meeting</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">2022-08-02</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">2022-08-05</div>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -138,30 +136,21 @@
                                                 Total
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-500 uppercase">
-                                                Fiscal Year ( Since FY23 Q1)
+                                                Fiscal Year ( Since FY20 Q1)
                                             </th>
 
                                         </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                        {{--Check this for transition--}}
                                         <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">Participants ({{$participants->count() }} Unique)</div>
+                                                <div class="text-sm text-gray-900">Clinical Services</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{$participants->count()}}</div>
+                                                <div class="text-sm text-gray-900">AHD Training</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{$participants->count()}}</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">Trainings</div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{$trainings->count()}}</div>
+                                                <div class="text-sm text-gray-900">Ondo</div>
                                             </td>
                                         </tr>
                                         </tbody>
