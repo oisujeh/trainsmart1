@@ -1,7 +1,9 @@
 <?php
 
 use App\Helpers\RouteHelper;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\DirectorateController;
+use App\Http\Controllers\EnrollController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +25,9 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('directorates', DirectorateController::class);
     Route::resource('trainings', TrainingController::class);
-
+    Route::resource('enroll',EnrollController::class);
     Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
+    Route::post('/getEmployees',[EnrollController::class,'getEmployees'])->name('getEmployees');
 });
 
 Route::prefix('')->group(function(){
@@ -41,4 +44,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/dashboard',[DataController::class,'index'])->name('dashboard');
+
 Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');
+

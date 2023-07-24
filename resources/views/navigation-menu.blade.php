@@ -17,8 +17,44 @@
                     </x-jet-nav-link>
 
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
-                        <!-- Teams Dropdown -->
-                            <div class="ml-3 relative">
+
+                        <!-- Trainings Dropdown -->
+                        <div class="ml-3 relative">
+                            <x-jet-dropdown align="center" width="60">
+                                <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                                Trainings
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <div class="w-60">
+                                        <x-jet-dropdown-link href="{{ url('/titles/create') }}">
+                                            {{ __('Add Training Title') }}
+                                        </x-jet-dropdown-link>
+                                        <div class="border-t border-gray-100"></div>
+                                        <x-jet-dropdown-link href="{{ url('/trainings/create') }}">
+                                            {{ __('Add Training') }}
+                                        </x-jet-dropdown-link>
+                                        <div class="border-t border-gray-100"></div>
+                                        <x-jet-dropdown-link href="{{ url('/participants/create') }}">
+                                            {{ __('Add Participant to Training') }}
+                                        </x-jet-dropdown-link>
+                                        <x-jet-dropdown-link href="{{ url('/participants/create') }}">
+                                            {{ __('Search Trainings by Participants') }}
+                                        </x-jet-dropdown-link>
+                                    </div>
+                                </x-slot>
+                            </x-jet-dropdown>
+                        </div>
+
+                        <!-- Participants Dropdown -->
+                        <div class="ml-3 relative">
                                 <x-jet-dropdown align="center" width="60">
                                     <x-slot name="trigger">
                                         <span class="inline-flex rounded-md">
@@ -175,7 +211,39 @@
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <!-- Teams Dropdown -->
+            <!-- Participants -->
+            <div class="ml-3 relative">
+                <x-jet-dropdown align="center" width="100">
+                    <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                                Participants
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="w-60">
+                            <!-- Team Settings -->
+                            <x-jet-dropdown-link href="{{ route('participants.index') }}">
+                                {{ __('View Participants') }}
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+
+                            <x-jet-dropdown-link href="{{ url('/participants/create') }}">
+                                {{ __('Add Participant') }}
+                            </x-jet-dropdown-link>
+
+                        </div>
+                    </x-slot>
+                </x-jet-dropdown>
+            </div>
+
+
+            <!-- Participants -->
             <div class="ml-3 relative">
                 <x-jet-dropdown align="center" width="100">
                     <x-slot name="trigger">

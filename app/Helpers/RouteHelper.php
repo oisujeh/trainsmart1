@@ -9,7 +9,7 @@ use RecursiveIteratorIterator;
 
 class RouteHelper
 {
-    public static function includeRouteFiles(string $folder)
+    public static function includeRouteFiles(string $folder): void
     {
         // iterate through the v1 folder recursively
         $dirIterator = new RecursiveDirectoryIterator($folder);
@@ -24,7 +24,6 @@ class RouteHelper
                 && $it->isReadable()
                 && $it->current()->getExtension() === 'php')
             {
-                /** @noinspection PhpIncludeInspection */
                 require $it->key();
             }
             $it->next();

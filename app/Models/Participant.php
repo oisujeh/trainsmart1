@@ -50,12 +50,11 @@ class Participant extends Model
         return parent::setAttribute($key, $value);
     }
 
-    protected function name(): Attribute
+    public function getNameAttribute($name): string
     {
-        return Attribute::make(
-            get: fn ($value) => ucfirst($value)
-        );
+        return ucwords($name);
     }
+
 
 
     public function institution(): HasOne

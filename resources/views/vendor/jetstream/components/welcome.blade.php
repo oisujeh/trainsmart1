@@ -39,7 +39,7 @@
             <div class="flex items-start justify-between">
                 <div class="flex flex-col space-y-2">
                     <span class="text-white">Participants</span>
-                    <span class="text-lg text-white font-semibold">11,234</span>
+                    <span class="text-lg text-white font-semibold">{{$data}}</span>
                 </div>
                 <x-entypo-users class="w-7 h-7 text-white"/>
             </div>

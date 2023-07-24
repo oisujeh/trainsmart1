@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -67,43 +68,32 @@ class TrainingController extends Controller
         if($validator->fails()){
             return back()->withErrors($validator)->withInput();
         }
-
-        $training = Training::firstOrCreate(
-            [
-                'training_title_id' => strip_tags($request->input('training_title_id')),
-                'directorate_id' => strip_tags($request->input('directorate_id')),
-                'location'   => strip_tags($request->input('location')),
-                'venue'   => strip_tags($request->input('venue')),
-                'method'   => strip_tags($request->input('method')),
-                'start_date' => strip_tags($request->input('start_date')),
-                'end_date' => strip_tags($request->input('end_date')),
-            ]
-            ,[
-                'training_title_id' => strip_tags($request->input('training_title_id')),
-                'directorate_id' => strip_tags($request->input('directorate_id')),
-                'location'   => strip_tags($request->input('location')),
-                'venue'   => strip_tags($request->input('venue')),
-                'method'   => strip_tags($request->input('method')),
-                'start_date' => strip_tags($request->input('start_date')),
-                'end_date' => strip_tags($request->input('end_date')),
-            ]
-        );
-
-        /*foreach($request->input('training_title_id') as $training_title_id){
-            if(Training::where('training_title_id','=',$training->training_title_id)
-                ->where('directorate_id','=',$training->directorate_id)
-                ->where('location','=',$training->location)
-                ->where('start_date','=',$training->start_date)
-                ->where('end_date','=',$training->end_date)
-                ->exists()){
-
-                return back()->withErrors('This training has already been added. Contact your administrator');
-            }
+        try{
+            $training = Training::firstOrCreate(
+                [
+                    'training_title_id' => strip_tags($request->input('training_title_id')),
+                    'directorate_id' => strip_tags($request->input('directorate_id')),
+                    'location'   => strip_tags($request->input('location')),
+                    'venue'   => strip_tags($request->input('venue')),
+                    'method'   => strip_tags($request->input('method')),
+                    'start_date' => strip_tags($request->input('start_date')),
+                    'end_date' => strip_tags($request->input('end_date')),
+                ]
+                ,[
+                    'training_title_id' => strip_tags($request->input('training_title_id')),
+                    'directorate_id' => strip_tags($request->input('directorate_id')),
+                    'location'   => strip_tags($request->input('location')),
+                    'venue'   => strip_tags($request->input('venue')),
+                    'method'   => strip_tags($request->input('method')),
+                    'start_date' => strip_tags($request->input('start_date')),
+                    'end_date' => strip_tags($request->input('end_date')),
+                ]
+            );
             $training->save();
+        }catch (\Exception $e){
+            return back()->withErrors('This training has already been added. Contact your administrator');
+        }
 
-        }*/
-
-        $training->save();
 
 
         return redirect('trainings')->with('success','Created');
@@ -112,8 +102,8 @@ class TrainingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Training  $training
-     * @return \Illuminate\Http\Response
+     * @param Training $training
+     * @return Response
      */
     public function show(Training $training)
     {
@@ -123,8 +113,8 @@ class TrainingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Training  $training
-     * @return \Illuminate\Http\Response
+     * @param Training $training
+     * @return Response
      */
     public function edit(Training $training)
     {
@@ -135,8 +125,8 @@ class TrainingController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Models\Training  $training
-     * @return \Illuminate\Http\Response
+     * @param Training $training
+     * @return Response
      */
     public function update(Request $request, Training $training)
     {
@@ -146,8 +136,8 @@ class TrainingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Training  $training
-     * @return \Illuminate\Http\Response
+     * @param Training $training
+     * @return Response
      */
     public function destroy(Training $training)
     {
