@@ -23,10 +23,10 @@ class ParticipantController extends Controller
 
     public function index(Request $request): Factory|View|Application
     {
-        /*auth()->user()->assignRole('oladele');*/
+        /*auth()->user()->assignRole('owner');*/
 
         /*$role = Role::create(['name'=>'admin']);*/
-        /*Permission::create(['name'=>'can delete']);*/
+        /*Permission::create(['name'=>'can view']);*/
         /*$role = Role::findById(1);
         $permission = Permission::findById(1);
         $role->givePermissionTo($permission);*/
@@ -36,7 +36,7 @@ class ParticipantController extends Controller
     /**
      * @throws \Exception
      */
-    public function fetch(Request $request)
+    public function fetch(Request $request): void
     {
         $ola = Participant::count();
         $col_order = ['name','email','sex','phone'];

@@ -63,28 +63,5 @@
             });
         });
     </script>
-    {{--<script>
-        $(".delete").click(function(){
-            $.ajaxSetup({
-                headers:{
-                    'X-CSRF-TOKEN':$('meta[name=csrf-token]').attr('content')
-                }
-            });
-            $.ajax({
-                url: 'participants/delete'+id,
-                dataType: 'json',
-                type:'DELETE',
-                data:{
-                    "id":id
-                },
-                success: function(response){
-                    console.log(response);
-                },
-                error: function(xhr){
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-    </script>--}}
 </x-app-layout>
 

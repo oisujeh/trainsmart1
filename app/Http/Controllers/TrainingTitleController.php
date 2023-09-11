@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Yajra\DataTables\DataTables;
 
 class TrainingTitleController extends Controller
 {
@@ -20,7 +21,7 @@ class TrainingTitleController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index(): Application|Factory|View
     {
         $trainingTitle = TrainingTitle::with('training')->get();
         return view('titles.index', compact('trainingTitle'));
@@ -126,10 +127,21 @@ class TrainingTitleController extends Controller
     public function destroy($id): Redirector|RedirectResponse|Application
     {
         $trainingTitle = TrainingTitle::find($id);
-        if($trainingTitle->training()->count()){
-            return back()->with('error','Cannot Delete this contact your Admin');
+
+        // Check if the record exists
+        if (!$trainingTitle) {
+            return back()->withErrors(['error' => 'Training Title not found']);
         }
+
+        // Check if the title has related training instances
+        if ($trainingTitle->training()->count()) {
+            return back()->withErrors(['error' => 'Cannot Delete this contact your Admin']);
+        }
+
+        // Delete the title
         $trainingTitle->delete();
-        return redirect('titles')->with('success','Training Title Deleted');
+
+        return redirect('titles')->with('success', 'Training Title Deleted');
     }
+
 }
