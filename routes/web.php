@@ -5,6 +5,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\EnrollController;
 use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\UsermanagementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/welcome');
 });
 
 Route::group(['middleware' => ['auth']], function(){
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('enroll',EnrollController::class);
     Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
     Route::post('/getEmployees',[EnrollController::class,'getEmployees'])->name('getEmployees');
+    Route::resource('users', UsermanagementController::class);
 });
 
 Route::prefix('')->group(function(){
