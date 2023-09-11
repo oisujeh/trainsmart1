@@ -30,23 +30,25 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
     Route::post('/getEmployees',[EnrollController::class,'getEmployees'])->name('getEmployees');
     Route::resource('users', UsermanagementController::class);
+
+    Route::middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified'
+    ])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+    });
+
+    Route::get('/dashboard',[DataController::class,'index'])->name('dashboard');
+
+    Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');
 });
 
 Route::prefix('')->group(function(){
     RouteHelper::includeRouteFiles(__DIR__.'/web');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
 
-Route::get('/dashboard',[DataController::class,'index'])->name('dashboard');
-
-Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');
 

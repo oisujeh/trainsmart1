@@ -22,7 +22,7 @@ class TrainingController extends Controller
     public function index()
     {
         $training = Training::all();
-        return view('training.index',compact('training'));
+        return view('trainings.index',compact('training'));
     }
 
     /**

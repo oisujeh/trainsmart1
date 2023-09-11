@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
@@ -34,4 +35,14 @@ class Training extends Model
     {
         return $this->hasOne('App\Models\TrainingTitle', 'id','training_title_id');
     }
+
+    public function directorate1(): BelongsTo
+    {
+        return $this->belongsTo(Directorate::class, 'directorate_id');
+    }
+
+   /* public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }*/
 }
