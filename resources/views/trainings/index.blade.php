@@ -14,21 +14,7 @@
                 </a>
             </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 mt-6 lg:mt-0 rounded shadow">
-
-                <table id="tt" class="stripe" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                    <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Directorate</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-
-                    </tbody>
-                </table>
-
+                <livewire:trainings/>
             </div>
         </div>
     </div>

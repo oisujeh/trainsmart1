@@ -19,7 +19,7 @@ class TrainingController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $training = Training::all();
         return view('trainings.index',compact('training'));
