@@ -113,12 +113,13 @@ class TrainingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Training $training
-     * @return Response
+     * @param $id
+     * @return Application|Factory|View
      */
-    public function edit(Training $training)
+    public function edit($id): Application|Factory|View
     {
-        //
+        $trainings = Training::find($id);
+        return view('training.edit', compact('trainings'));
     }
 
     /**

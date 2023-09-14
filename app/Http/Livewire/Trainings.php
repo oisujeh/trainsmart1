@@ -57,7 +57,7 @@ final class Trainings extends PowerGridComponent
     /**
      * PowerGrid datasource.
      *
-     * @return Builder<\App\Models\Training>
+     * @return Builder<Training>
      */
     public function datasource(): Builder
     {
@@ -181,25 +181,25 @@ final class Trainings extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    /*
+
     public function actions(): array
     {
        return [
            Button::make('edit', 'Edit')
                ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('training.edit', function(\App\Models\Training $model) {
-                    return $model->id;
+               ->route('trainings.edit', function(Training $model) {
+                    return ['id'=>$model->id];
                }),
 
            Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('training.destroy', function(\App\Models\Training $model) {
+               ->class('bg-red-700 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+               ->route('', function(\App\Models\Training $model) {
                     return $model->id;
                })
                ->method('delete')
         ];
     }
-    */
+
 
     /*
     |--------------------------------------------------------------------------
