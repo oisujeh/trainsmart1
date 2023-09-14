@@ -26,6 +26,7 @@ class Training extends Model
 
     ];
 
+
     public function directorate(): HasOne
     {
         return $this->hasOne('App\Models\Directorate', 'id','directorate_id');

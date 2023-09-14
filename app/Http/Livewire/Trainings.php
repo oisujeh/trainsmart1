@@ -8,7 +8,15 @@ use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\{ActionButton, WithExport};
 use PowerComponents\LivewirePowerGrid\Filters\Filter;
-use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridColumns};
+use PowerComponents\LivewirePowerGrid\{Button,
+    Column,
+    Exportable,
+    Footer,
+    Header,
+    PowerGrid,
+    PowerGridComponent,
+    PowerGridColumns,
+    Responsive};
 
 final class Trainings extends PowerGridComponent
 {
@@ -24,16 +32,17 @@ final class Trainings extends PowerGridComponent
     */
     public function setUp(): array
     {
-        $this->showCheckBox();
+        /*$this->showCheckBox();*/
 
         return [
             Exportable::make('export')
                 ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+                ->type(Exportable::TYPE_XLS),
             Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
-                ->showRecordCount(),
+                ->showRecordCount(mode: 'full'),
+            Responsive::make(),
         ];
     }
 
@@ -52,8 +61,10 @@ final class Trainings extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Training::query()->join('directorates','trainings.directorate_id','=','directorates.id')
-            ->select('trainings.*', 'directorates.name as directorates');
+        return Training::query()
+            ->join('directorates','trainings.directorate_id','=','directorates.id')
+            ->join('training_titles','training_titles.directorate_id','=','directorates.id')
+            ->select('trainings.*', 'directorates.name as directorates','training_titles.title AS titles');
     }
 
     /*
@@ -89,9 +100,8 @@ final class Trainings extends PowerGridComponent
     {
         return PowerGrid::columns()
             ->addColumn('directorates')
-            ->addColumn('training_title_id')
+            ->addColumn('titles')
             ->addColumn('start_date_formatted', fn (Training $model) => Carbon::parse($model->start_date)->format('d/m/Y'))
-            ->addColumn('end_date_formatted', fn (Training $model) => Carbon::parse($model->end_date)->format('d/m/Y'))
             ->addColumn('location')
 
            /** Example of custom column using a closure **/
@@ -117,12 +127,15 @@ final class Trainings extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Directorates', 'directorates'),
-            Column::make('Training title id', 'training_title_id'),
-            Column::make('Start date', 'start_date_formatted', 'start_date')
-                ->sortable(),
+            Column::make('Directorates', 'directorates')
+                ->sortable()
+                ->searchable(),
 
-            Column::make('End date', 'end_date_formatted', 'end_date')
+            Column::make('Training title', 'titles')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Start date', 'start_date_formatted', 'start_date')
                 ->sortable(),
 
             Column::make('Office', 'location')
@@ -145,8 +158,10 @@ final class Trainings extends PowerGridComponent
     {
         return [
             Filter::datepicker('start_date'),
-            Filter::datepicker('end_date'),
-            Filter::inputText('location')->operators(['contains']),
+            Filter::select('location','location')
+                ->dataSource(Training::select('location')->distinct()->get())
+                ->optionValue('location')
+                ->optionLabel('location'),
             Filter::inputText('method')->operators(['contains']),
             Filter::inputText('venue')->operators(['contains']),
         ];
