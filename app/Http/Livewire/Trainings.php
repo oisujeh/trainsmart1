@@ -59,11 +59,12 @@ final class Trainings extends PowerGridComponent
      *
      * @return Builder<Training>
      */
+
     public function datasource(): Builder
     {
         return Training::query()
             ->join('directorates','trainings.directorate_id','=','directorates.id')
-            ->join('training_titles','training_titles.directorate_id','=','directorates.id')
+            ->join('training_titles','trainings.training_title_id','=','training_titles.id')
             ->select('trainings.*', 'directorates.name as directorates','training_titles.title AS titles');
     }
 
