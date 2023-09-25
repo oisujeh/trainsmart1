@@ -26,6 +26,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('directorates', DirectorateController::class);
     Route::resource('enroll',EnrollController::class);
+    Route::resource('trainings',TrainingController::class);
     Route::get('trainings', [TrainingController::class,'index'])->name('index');
     Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
     Route::get('trainings/{id}/edit', 'TrainingController@edit')->name('trainings.edit');

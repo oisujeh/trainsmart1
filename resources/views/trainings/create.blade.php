@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Participant') }}
+            {{ __('Create Training') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -54,21 +54,21 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3 form-floating">
+                                        <label for="institution" class="block text-sm font-bold text-gray-700">Start Date</label>
                                             <input type="date" name="start_date"
                                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                                                    border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                                                    focus:border-blue-600 focus:outline-none"
                                                    placeholder="Select a date" />
-                                            <label for="floatingInput" class="text-gray-700">Start Date</label>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3 form-floating">
+                                        <label for="institution" class="block text-sm font-bold text-gray-700">End Date</label>
                                         <input type="date" name="end_date"
                                                class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                                                    border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                                                    focus:border-blue-600 focus:outline-none"
                                                placeholder="Select a date" />
-                                        <label for="floatingInput" class="text-gray-700">End Date</label>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
