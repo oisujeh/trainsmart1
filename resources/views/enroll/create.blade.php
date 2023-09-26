@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Add Participants to Training') }}
@@ -52,7 +52,7 @@
         </div>
     </div>
     @section('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 $('#names').select2({
@@ -90,5 +90,5 @@
             });
         </script>
     @endsection
-</x-app-layout>
+</x-guest-layout>
 

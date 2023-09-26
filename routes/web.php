@@ -19,6 +19,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/clear-cache', function() {
+    Artisan::call('config:cache');
+});
+
+Route::get('/down', function() {
+    Artisan::call('down --secret="1630542a-246b-4b66-afa1-dd72a4c43515"');
+});
+
+Route::get('/start', function() {
+    Artisan::call('vendor:publish --tag=laravel-errors');
+});
+
+
 Route::get('/', function () {
     return view('/welcome');
 });
