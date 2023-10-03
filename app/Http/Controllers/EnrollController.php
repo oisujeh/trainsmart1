@@ -9,10 +9,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 
 class EnrollController extends Controller
@@ -25,7 +23,6 @@ class EnrollController extends Controller
     public function index(): View|Factory|Application
     {
         $alreadyEnrolledParticipants = [];
-
         $list = DB::table('enroll_trainings')
             ->join('trainings','enroll_trainings.training_id','=','trainings.id')
             ->join('participants','enroll_trainings.participant_id','=','participants.id')
@@ -35,7 +32,6 @@ class EnrollController extends Controller
                 'trainings.venue as venue','directorates.name as directorate','training_titles.title as training',
                 'trainings.start_date as start_date','trainings.end_date as end_date')
             ->get();
-
         return view ('enroll.index',compact('list','alreadyEnrolledParticipants'));
     }
 
@@ -62,7 +58,7 @@ class EnrollController extends Controller
      * @param Request $request
      * @return Application
      */
-    public function store(Request $request)
+    public function store(Request $request): Application
     {
         $alreadyEnrolledParticipants = [];
         $list = DB::table('enroll_trainings')
@@ -79,22 +75,17 @@ class EnrollController extends Controller
             $saveInfo = new Enroll();
             $saveInfo->participant_id = $participant_id;
             $saveInfo->training_id = $request->input('training_id');
-
             if (Enroll::where('participant_id', $saveInfo->participant_id)
                 ->where('training_id', $saveInfo->training_id)
                 ->exists()) {
                 $participant = Participant::find($participant_id); // Assuming there's a Participant model
-
                 if ($participant) {
                     $alreadyEnrolledParticipants[] = $participant;
                 }
-
                 continue; // Skip saving the enrollment
             }
-
             $saveInfo->save();
         }
-
         return view('enroll.index', ['alreadyEnrolledParticipants' => $alreadyEnrolledParticipants, 'list' => $list]);
     }
 
@@ -161,7 +152,7 @@ class EnrollController extends Controller
         return response()->json($response);
     }
 
-    public function fetch(Request $request)
+    public function fetch(Request $request): void
     {
         $query = DB::table('enroll_trainings')
             ->join('trainings', 'enroll_trainings.training_id', '=', 'trainings.id')
