@@ -27,7 +27,7 @@
 
                     <!-- Cards Section-->
                     <div class="grid grid-cols-1 gap-5 mt-6 sm:grid-cols-1 lg:grid-cols-4">
-                        <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg bg-indigo-600">
+                        <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg bg-indigo-600 ease-in duration-300">
                             <div class="flex items-start justify-between">
                                 <div class="flex flex-col space-y-2">
                                     <span class="text-white">Trainings</span>
