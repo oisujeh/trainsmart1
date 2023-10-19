@@ -8,7 +8,7 @@
         "php": "^8.0.2",
         "blade-ui-kit/blade-icons": "^1.3",
         "guzzlehttp/guzzle": "^7.2",
-        "jeremykenedy/laravel-roles": "^8.1",
+        "jeremykenedy/laravel-roles": "^9.1",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.10",
         "laravel/sanctum": "^2.14.1",

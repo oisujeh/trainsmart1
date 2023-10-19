@@ -9,6 +9,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/css/app2.css',
                 'resources/js/app2.js',
+                'resources/css/app3.css',
+                'resources/js/app3.js',
             ],
             refresh: [
                 ...refreshPaths,

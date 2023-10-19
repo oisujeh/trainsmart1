@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d0857e9167466ab720d9c052b978da7",
+    "content-hash": "4af48d9b7d606b8c383a1247b7b23630",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1678,29 +1678,29 @@
         },
         {
             "name": "jeremykenedy/laravel-roles",
-            "version": "v8.1.0",
+            "version": "v9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeremykenedy/laravel-roles.git",
-                "reference": "46e6391806a077487a81f4b60bafe7f3aed8bdb1"
+                "reference": "8378d6ece890e571b078679b9a15b391a9e73283"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeremykenedy/laravel-roles/zipball/46e6391806a077487a81f4b60bafe7f3aed8bdb1",
-                "reference": "46e6391806a077487a81f4b60bafe7f3aed8bdb1",
+                "url": "https://api.github.com/repos/jeremykenedy/laravel-roles/zipball/8378d6ece890e571b078679b9a15b391a9e73283",
+                "reference": "8378d6ece890e571b078679b9a15b391a9e73283",
                 "shasum": ""
             },
             "require": {
                 "eklundkristoffer/seedster": "^5.0",
-                "laravel/framework": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*|8.*|^9.0",
+                "laravel/framework": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*|8.*|^9.0|^10.0",
                 "laravel/helpers": "^1.5",
                 "php": "^7.2|^8.0.2|^8.1"
             },
             "require-dev": {
-                "illuminate/support": "^8.5|^9.0",
-                "laravel/laravel": "^8.0|^9.0",
+                "illuminate/support": "^8.5|^9.0|^10.0",
+                "laravel/laravel": "^8.0|^9.0|^10.0",
                 "laravel/tinker": "^2.7",
-                "orchestra/testbench": "^6.0|^7.0"
+                "orchestra/testbench": "^6.0|^7.0|^8.0"
             },
             "type": "package",
             "extra": {
@@ -1742,7 +1742,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jeremykenedy/laravel-roles/issues",
-                "source": "https://github.com/jeremykenedy/laravel-roles/tree/v8.1.0"
+                "source": "https://github.com/jeremykenedy/laravel-roles/tree/v9.1.0"
             },
             "funding": [
                 {
@@ -1754,7 +1754,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-02-20T07:05:24+00:00"
+            "time": "2023-02-08T03:22:56+00:00"
         },
         {
             "name": "laravel/fortify",

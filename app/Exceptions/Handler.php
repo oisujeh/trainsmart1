@@ -2,7 +2,15 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use jeremykenedy\LaravelRoles\App\Exceptions\LevelDeniedException;
+use jeremykenedy\LaravelRoles\App\Exceptions\PermissionDeniedException;
+use jeremykenedy\LaravelRoles\App\Exceptions\RoleDeniedException;
+use Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +54,44 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+
+
+    public function render($request, Throwable $e): \Illuminate\Http\Response|JsonResponse|\Symfony\Component\HttpFoundation\Response
+    {
+        $userLevelCheck = $e instanceof RoleDeniedException ||
+            $e instanceof PermissionDeniedException ||
+            $e instanceof LevelDeniedException;
+
+        if ($userLevelCheck) {
+
+            if ($request->expectsJson()) {
+                return Response::json(array(
+                    'error'    =>  403,
+                    'message'   =>  'Unauthorized.'
+                ), 403);
+            }
+
+            abort(403);
+        }
+
+        return parent::render($request, $e);
+    }
+
+    /**
+     * Convert an authentication exception into an unauthenticated response.
+     *
+     * @param  Request  $request
+     * @param AuthenticationException $exception
+     * @return JsonResponse|RedirectResponse
+     */
+    protected function unauthenticated($request, AuthenticationException $exception): JsonResponse|RedirectResponse
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        return redirect()->guest(route('login'));
     }
 }

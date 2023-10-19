@@ -27,6 +27,8 @@ Route::get('/down', function() {
     Artisan::call('down --secret="1630542a-246b-4b66-afa1-dd72a4c43515"');
 });
 
+
+
 Route::get('/start', function() {
     Artisan::call('vendor:publish --tag=laravel-errors');
 });
@@ -36,7 +38,7 @@ Route::get('/', function () {
     return view('/welcome');
 });
 
-Route::group(['middleware' => ['auth']], function(){
+Route::group(['middleware' => ['auth','role:super.admin']], function(){
     Route::resource('directorates', DirectorateController::class);
     Route::resource('enroll',EnrollController::class);
     Route::resource('trainings',TrainingController::class);
