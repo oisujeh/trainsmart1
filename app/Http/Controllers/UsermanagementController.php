@@ -13,6 +13,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use jeremykenedy\LaravelRoles\Models\Role;
 use Laravel\Jetstream\Jetstream;
 
 class UsermanagementController extends Controller
@@ -20,15 +21,13 @@ class UsermanagementController extends Controller
     public function index(): Factory|View|Application
     {
         $users = User::all();
-        return view('admin.users.index', compact('users'));
-
+        return view('users.index', compact('users'));
     }
 
     public function show(User $user)
     {
         $roles = Role::all();
         $permissions = Permission::all();
-
         return view('admin.users.role', compact('user', 'roles', 'permissions'));
     }
 
@@ -84,43 +83,24 @@ class UsermanagementController extends Controller
         return redirect('users')->with('success', trans('Created'));
     }
 
-    public function assignRole(Request $request, User $user)
+    public function edit(User $user): Factory|View|Application
     {
-        if ($user->hasRole($request->role)) {
-            return back()->with('message', 'Role exists.');
+        $roles = Role::all();
+
+        foreach ($user->roles as $userRole) {
+            $currentRole = $userRole;
         }
 
-        $user->assignRole($request->role);
-        return back()->with('message', 'Role assigned.');
+        $data = [
+            'user'        => $user,
+            'roles'       => $roles,
+            'currentRole' => $currentRole,
+        ];
+
+        return view('usersmanagement.edit-user')->with($data);
     }
 
-    public function removeRole(User $user, Role $role): RedirectResponse
-    {
-        if ($user->hasRole($role)) {
-            $user->removeRole($role);
-            return back()->with('message', 'Role removed.');
-        }
 
-        return back()->with('message', 'Role not exists.');
-    }
-
-    public function givePermission(Request $request, User $user): RedirectResponse
-    {
-        if ($user->hasPermissionTo($request->permission)) {
-            return back()->with('message', 'Permission exists.');
-        }
-        $user->givePermissionTo($request->permission);
-        return back()->with('message', 'Permission added.');
-    }
-
-    public function revokePermission(User $user, Permission $permission): RedirectResponse
-    {
-        if ($user->hasPermissionTo($permission)) {
-            $user->revokePermissionTo($permission);
-            return back()->with('message', 'Permission revoked.');
-        }
-        return back()->with('message', 'Permission does not exists.');
-    }
 
     public function destroy(User $user): RedirectResponse
     {

@@ -38,7 +38,7 @@ Route::get('/', function () {
     return view('/welcome');
 });
 
-Route::group(['middleware' => ['auth','role:super.admin']], function(){
+Route::group(['middleware' => ['auth']], function(){
     Route::resource('directorates', DirectorateController::class);
     Route::resource('enroll',EnrollController::class);
     Route::resource('trainings',TrainingController::class);
@@ -46,10 +46,27 @@ Route::group(['middleware' => ['auth','role:super.admin']], function(){
     Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
     Route::get('trainings/{id}/edit', 'TrainingController@edit')->name('trainings.edit');
     Route::post('/getEmployees',[EnrollController::class,'getEmployees'])->name('getEmployees');
-    Route::resource('users', UsermanagementController::class);
     Route::get('/dashboard',[DataController::class,'index'])->name('dashboard');
     Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');
     Route::get('/welcome2',[DataController::class,'index'])->name('welcome2');
+    Route::prefix('')->group(function(){
+        RouteHelper::includeRouteFiles(__DIR__.'/web');
+    });
+
+
+});
+
+
+Route::group(['middleware' => ['auth','role:super.admin']], function(){
+    Route::resource('users', UsermanagementController::class, [
+        'names' => [
+            'index'   => 'users',
+            'destroy' => 'user.destroy',
+        ],
+        'except' => [
+            'deleted',
+        ],
+    ]);
 });
 
 /*Route::middleware([
@@ -62,9 +79,7 @@ Route::group(['middleware' => ['auth','role:super.admin']], function(){
     })->name('dashboard');
 });*/
 
-Route::prefix('')->group(function(){
-    RouteHelper::includeRouteFiles(__DIR__.'/web');
-});
+
 
 Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');
 
