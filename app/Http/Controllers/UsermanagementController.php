@@ -13,6 +13,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use jeremykenedy\LaravelRoles\Models\Permission;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Laravel\Jetstream\Jetstream;
 
@@ -24,7 +25,7 @@ class UsermanagementController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function show(User $user)
+    public function show(User $user): Factory|View|Application
     {
         $roles = Role::all();
         $permissions = Permission::all();
