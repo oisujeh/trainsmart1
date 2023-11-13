@@ -58,7 +58,7 @@ class EnrollController extends Controller
      * @param Request $request
      * @return Application
      */
-    public function store(Request $request): Application
+    public function store(Request $request)
     {
         $alreadyEnrolledParticipants = [];
         $list = DB::table('enroll_trainings')
