@@ -186,18 +186,18 @@ final class Trainings extends PowerGridComponent
     public function actions(): array
     {
        return [
-           Button::make('edit', 'Edit')
+           Button::make('show', 'View Partcipant List')
                ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('trainings.edit', function(Training $model) {
-                    return ['id'=>$model->id];
+               ->route('trainings.show', function(Training $model) {
+                    return ['training'=>$model->id];
                }),
 
-           Button::make('destroy', 'Delete')
+           /*Button::make('destroy', 'Delete')
                ->class('bg-red-700 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
                ->route('', function(\App\Models\Training $model) {
                     return $model->id;
                })
-               ->method('delete')
+               ->method('delete')*/
         ];
     }
 

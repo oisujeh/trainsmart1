@@ -102,12 +102,25 @@ class TrainingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Training $training
-     * @return Response
+     * @param $id
+     * @return Application|Factory|View
      */
-    public function show(Training $training)
+    public function show($id): View|Factory|Application
     {
-        //
+        $trainingLists = Training::where('trainings.id', $id)
+            ->leftJoin('enroll_trainings', 'enroll_trainings.training_id', '=', 'trainings.id')
+            ->leftJoin('training_titles', 'trainings.training_title_id', '=', 'training_titles.id')
+            ->leftJoin('participants', 'enroll_trainings.participant_id', '=', 'participants.id')
+            ->select(
+                'participants.name as name',
+                'participants.sex as sex',
+                'participants.email as email',
+                'participants.designation as designation',
+                'training_titles.title as title'
+            )
+            ->get();
+
+        return view('trainings.show', compact('trainingLists'));
     }
 
     /**

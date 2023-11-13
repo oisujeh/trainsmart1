@@ -19,7 +19,7 @@
                            class="inline-block mr-1 px-4 py-4 border border-transparent text-sm leading-3 font-medium text-white bg-red-700 hover:bg-brightRedLight focus:outline-none focus:shadow-outline">
                             Add Facilitator
                         </a>
-                        <a href=""
+                        <a href="{{ url('/trainings/create') }}"
                            class="inline-block px-4 py-4 border border-transparent text-sm leading-3 font-medium text-white bg-brightGreen hover:bg-brightGreenLight focus:outline-none focus:shadow-outline">
                             Add Training
                         </a>

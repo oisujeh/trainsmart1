@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family==Roboto:wght@100;300&display=swap">
@@ -268,12 +268,13 @@
                             </div>
                         </form>-->
             <div class="hidden text-white md:block">
-                Copyright &copy;
+                {{--Copyright &copy;--}}
+                APIN Health Informatics Team
                 <script>
                     var CurrentYear = new Date().getFullYear()
                     document.write(CurrentYear)
                 </script>
-                APIN Health Informatics Team
+
             </div>
         </div>
     </div>

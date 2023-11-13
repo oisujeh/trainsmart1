@@ -92,10 +92,10 @@ class EnrollController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Enroll $cr
+     * @param $id
      * @return Response
      */
-    public function show(enroll $cr)
+    public function show($id)
     {
         //
     }

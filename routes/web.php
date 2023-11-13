@@ -4,6 +4,7 @@ use App\Helpers\RouteHelper;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\EnrollController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UsermanagementController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('trainings', [TrainingController::class,'index'])->name('index');
     Route::get('trainings/submain/{id}','App\Http\Controllers\TrainingController@submain1');
     Route::get('trainings/{id}/edit', 'TrainingController@edit')->name('trainings.edit');
+    Route::get('trainings/show/{id}', [TrainingController::class,'show'])->name('show');
     Route::post('/getEmployees',[EnrollController::class,'getEmployees'])->name('getEmployees');
     Route::get('/dashboard',[DataController::class,'index'])->name('dashboard');
     Route::get('submain/{id}','App\Http\Controllers\TrainingController@submain');
@@ -39,6 +41,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::prefix('')->group(function(){
         RouteHelper::includeRouteFiles(__DIR__.'/web');
     });
+
+
 
 });
 
